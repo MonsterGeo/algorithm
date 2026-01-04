@@ -1,6 +1,6 @@
 
 #include <stdio.h>
-
+#include <stdlib.h>
 int Partition(int arr[],int p,int r)
 {
     int x = arr[r];
@@ -30,6 +30,25 @@ void QuickSort(int arr[],int p, int r)
     }
 }
 
+int random_partition(int arr[],int p, int r)
+{
+    int i = p + rand() % r;
+    int temp = arr[i];
+    arr[i] = arr[r];
+    arr[r] = temp;
+    return Partition(arr,p,r);
+}
+
+void random_quicksort(int arr[],int p,int r)
+{
+    if (p < r)
+    {
+        int q = random_partition(arr, p, r);
+        random_quicksort(arr, p, q - 1);
+        random_quicksort(arr, q + 1, r);
+    }    
+}
+
 int main()
 {
     int arr[] = {10, 7, 8, 9, 1, 5};
@@ -40,7 +59,11 @@ int main()
     {
         printf("%d ", arr[i]);
     }
+
+    //random_quicksort(arr, 0, n - 1);
     QuickSort(arr, 0, n - 1);
+    
+    
     printf("\n");
     printf("Sorted array: \n");
     for (int i = 0; i < n; i++)
@@ -49,3 +72,5 @@ int main()
     }
     return 0;
 }
+
+
